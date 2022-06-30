@@ -1,0 +1,3 @@
+from Reversi import ReversiGame
+
+
