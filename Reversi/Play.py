@@ -10,15 +10,17 @@ class Play:
         self.agent1 = agent1
         self.agent2 = agent2
 
-        if agent1==None or agent2==None:
+        
 
-            fig = plt.figure(figsize = (7.2,7.2))
-            ax = fig.add_subplot(111)
-            self.game = Reversi.ReversiGame(board_size)
+        fig = plt.figure(figsize = (7.2,7.2))
+        ax = fig.add_subplot(111)
+        self.game = Reversi.ReversiGame(board_size)
 
-            self.graphics = Graphics.Graphics(self,ax, self.game)
+        self.graphics = Graphics.Graphics(self,ax, self.game)
 
-            plt.show()
+        plt.show()
+
+
         
     def update(self, pos):
         if not self.game.isEnd():

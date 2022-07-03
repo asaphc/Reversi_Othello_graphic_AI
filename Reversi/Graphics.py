@@ -60,4 +60,6 @@ class Graphics:
                 if board[row,col]==-1:
                     ax.add_patch(Circle(((col+0.5)/len(board),1-(row+0.5)/len(board)) , 0.2/len(board), facecolor= 'w', edgecolor = 'black'))
         self.ax.figure.canvas.draw()
+        self.ax.figure.canvas.flush_events()
+
 
