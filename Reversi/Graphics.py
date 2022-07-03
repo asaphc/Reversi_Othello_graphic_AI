@@ -6,17 +6,14 @@ import numpy as np
 import agent
 
 class Graphics:
-    def __init__(self,game: Reversi.ReversiGame, ax, agent=None):
+    def __init__(self, play, ax, game: Reversi.ReversiGame):
         self.game: Reversi.ReversiGame = game
         self.ax = ax
         self.ax.figure.canvas.mpl_connect('button_press_event', self)
         self.draw_board(self.ax, self.game.get_board())
-        self.agent = agent
-        if self.game.get_turn()==1 and agent!=None:
-                move = self.agent.get_move(self.game)
-                self.game.make_move(move)
-        self.draw_board(self.ax, self.game.get_board())
-    
+        self.play = play
+
+
     def get_cell(self, x , y):
         try:
             col = int(x * self.game.boardSize()) % self.game.boardSize()
@@ -27,14 +24,11 @@ class Graphics:
     def __call__(self,event):
         row, col = self.get_cell(event.xdata,event.ydata)
         if row != -1:
-            self.game.make_move((row,col))
-            ## temp ##
-            if self.game.get_turn()==1 and agent!=None:
-                move = self.agent.get_move(self.game)
-                self.game.make_move(move)
-            
-            ##########
-            self.draw_board(self.ax, self.game.get_board())
+            self.play.update((row,col))
+
+    def update_board(self,game):
+        self.game = game
+        self.draw_board(self.ax, self.game.get_board())
 
     def draw_board(self,ax, board):
         ax.clear()
@@ -56,8 +50,6 @@ class Graphics:
             else:
                 ax.text(0.5, 1 + 0.5/len(board), 'draw!',horizontalalignment='center',verticalalignment='center', fontsize = 14)
 
-
-
         for i in range(len(board)+1):
             ax.plot([i/len(board),i/len(board)], [0,1], color='black')
             ax.plot([0,1], [i/len(board),i/len(board)], color='black')
@@ -68,10 +60,4 @@ class Graphics:
                 if board[row,col]==-1:
                     ax.add_patch(Circle(((col+0.5)/len(board),1-(row+0.5)/len(board)) , 0.2/len(board), facecolor= 'w', edgecolor = 'black'))
         self.ax.figure.canvas.draw()
-fig = plt.figure(figsize = (7.2,7.2))
-ax = fig.add_subplot(111)
-game = Reversi.ReversiGame(6)
 
-graph = Graphics(game,ax, agent=agent.Agent())
-
-plt.show()

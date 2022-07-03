@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>1f32e052-13bd-49fb-93f9-bcea2670829a</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Graphics.py</StartupFile>
+    <StartupFile>PlayGame.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -24,10 +24,19 @@
     <Compile Include="Graphics.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="agent.py">
+    <Compile Include="Agent.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tester.py">
+    <Compile Include="depth_1_agent.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Alpha_Beta_Agent.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Play.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PlayGame.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Reversi.py" />

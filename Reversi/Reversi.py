@@ -2,10 +2,14 @@ import numpy as np
 
 class ReversiGame:
     def __init__(self, board_size:int = 8, copy = None, state = None):
+        
+        self.end = False
+
         if copy == None and state==None:
             if board_size % 2 != 0 or board_size <=2:
                 raise ValueError('board size must be even and greater then 2')
 
+            
             self.board_size = board_size
             self.board = np.zeros((board_size,board_size))
             self.board[int(self.board_size/2)-1][int(self.board_size/2)-1] = 1
@@ -19,6 +23,7 @@ class ReversiGame:
             self.board_size = len(board)
             self.turn = turn
             self.board = np.copy(board)
+
         else:
             self.board_size = copy.board_size
             self.board = np.copy(copy.board)
@@ -70,16 +75,20 @@ class ReversiGame:
     
     def get_legal_moves(self):
         moves = []
-        for row in range(self.board_size):
-            for col in range(self.board_size):
-                if self.is_legal_move((row,col)):
-                    moves.append((row,col))
+        if not self.end:
+            for row in range(self.board_size):
+                for col in range(self.board_size):
+                    if self.is_legal_move((row,col)):
+                        moves.append((row,col))
         return moves
     
     def isEnd(self):
-        if len(self.get_legal_moves())==0:
-            return True
-        return False
+        if not self.end:
+            if len(self.get_legal_moves())==0:
+                self.end = True
+                return True
+            return False
+        return True
     
     def get_board(self):
         return np.copy(self.board)
@@ -90,9 +99,7 @@ class ReversiGame:
     def get_turn(self):
         return self.turn
 
-test = ReversiGame(8)
-moves = test.get_legal_moves()
-pass
+
 
         
     
